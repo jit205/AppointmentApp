@@ -43,4 +43,24 @@ public class UserController {
 	{
 		return us.getAllUserName();
 	}
+	@GetMapping("ValidUser")
+	private String getValid(@PathVariable String email,@PathVariable String pass)
+	{
+		Users u=us.validUser(email);
+		if(u!=null)
+		{
+			String e=u.getEmail();
+			String p=u.getPassword();
+			Users uu=us.ValidPass(pass);
+			String pp =uu.getPassword();
+			String  ee=uu.getEmail();
+			
+			if(e.equals(ee)&&p.equals(pp))
+			{
+				return"yes valid user";
+			}
+		
+		}
+		return "not valid user";
+	}
 }

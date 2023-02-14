@@ -32,4 +32,15 @@ public class UserService {
 		ur.findAll().forEach(Users -> li.add(Users.getUsername()));
 		return li;
 	}
+	public Users validUser(String email)
+	{
+		
+		return ur.findById(email).get();
+		
+	}
+	public Users ValidPass(String pass)
+	{
+		return ur.findById(pass).get();
+	}
+
 }
