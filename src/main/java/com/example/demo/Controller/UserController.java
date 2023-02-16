@@ -1,6 +1,8 @@
 package com.example.demo.Controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,24 +45,38 @@ public class UserController {
 	{
 		return us.getAllUserName();
 	}
-	@GetMapping("ValidUser")
-	private String getValid(@PathVariable String email,@PathVariable String pass)
+	@GetMapping("/ValidUser")
+	private String getValid(@RequestBody Map<String, String> params)
 	{
-		Users u=us.validUser(email);
-		if(u!=null)
-		{
-			String e=u.getEmail();
-			String p=u.getPassword();
-			Users uu=us.ValidPass(pass);
-			String pp =uu.getPassword();
-			String  ee=uu.getEmail();
+		String email = params.get("email");
+	    String password = params.get("password");
+	
+	   
+		List<Users> u=us.getAllUers();
+		for (Users x : u) {
 			
-			if(e.equals(ee)&&p.equals(pp))
+			if(email.equals(x.getEmail())&&password.equals(x.getPassword()))
 			{
-				return"yes valid user";
+				return "yes login is done";
 			}
 		
 		}
-		return "not valid user";
+		return "no login";
 	}
+//	@GetMapping("/forgetpass")
+//	private String ForgetPass(String email)
+//	{
+//		
+//	}
+	@PostMapping("/mail")
+	
+	public String sendmail()
+	{
+		   int b = new Random().nextInt(900000) + 100000;// 000010
+		String body = Integer.toString(b);
+//		if(body.length()!=6) body= (6- body.length()) * "0"+body;
+		us.sendEmail("dhruv20345@gmail.com", body, "This is subject");
+		return "email is send";
+	}
+	
 }
