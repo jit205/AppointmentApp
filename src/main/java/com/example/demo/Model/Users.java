@@ -1,14 +1,50 @@
 package com.example.demo.Model;
 
+import java.io.IOException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
+import org.springframework.web.multipart.MultipartFile;
+
+
 public class Users {
+	@Id
+	private String username;
 	private String firstName;
 	private String lastName;
-	private String username;
 	private String about;
 	private String email;
 	private String password;
 	private String picPath;
 	private Location location;
+	@Autowired
+	private ImageData image;
+	public ImageData getImage() {
+		return image;
+	}
+
+	public void setImage(ImageData image) {
+		this.image = image;
+	}
+
+	@Autowired
+	private MultipartFile file;
+//
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) throws IOException {
+		
+		ImageData  image = new ImageData();
+		image.setName(file.getOriginalFilename());
+		image.setContentType(file.getContentType());
+		image.setData(file.getBytes());
+		System.out.println(file.getName());
+		System.out.println(image.getData()+" , "+image.getName() +" , "+image.getContentType());
+		this.file = file;
+	
+	}
 
 	public Location getLocation() {
 		return location;
@@ -83,5 +119,5 @@ public class Users {
 	public void setImpressions(String impressions) {
 		this.impressions = impressions;
 	}
-	
+
 }

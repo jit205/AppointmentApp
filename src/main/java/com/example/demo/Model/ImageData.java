@@ -1,10 +1,16 @@
 package com.example.demo.Model;
 
+import java.util.Arrays;
+
 public class ImageData {
 	
     private String name;
     private String contentType;
-    private byte[] data;
+    @Override
+	public String toString() {
+		return "ImageData [name=" + name + ", contentType=" + contentType + ", data=" + Arrays.toString(data) + "]";
+	}
+	private byte[] data;
 
     public String getName() {
 		return name;

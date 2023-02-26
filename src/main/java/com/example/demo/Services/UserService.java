@@ -2,36 +2,44 @@ package com.example.demo.Services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-import org.apache.logging.log4j.message.SimpleMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-//import org.springframework.mail.javamail.JavaMailSenderImpl;
-//import org.springframework.stereotype.Service;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.demo.Model.ImageData;
 import com.example.demo.Model.Users;
 import com.example.demo.Repositery.UserRepositery;
+
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Service
 public class UserService {
 	@Autowired
 	UserRepositery ur;
 
-	public List<Users> getAllUers() {
-		List<Users> user = new ArrayList<Users>();
-		ur.findAll().forEach(Users -> user.add(Users));
-		return user;
-	}
+	@Autowired
+	private MongoTemplate mongoTemplate;
+
+//	public List<Users> getAllUers() {
+//		
+//		List<Users> user = new ArrayList<Users>();
+//		ur.findAll().forEach(Users -> user.add(Users));
+//		ur.findAll();
+//		return user;
+//	}
 
 	public Users getUsersById(String id) {
 		return ur.findById(id).get();
 	}
 
 	public Users SaveUser(Users u) {
-
 		return ur.save(u);
 	}
 
@@ -42,27 +50,9 @@ public class UserService {
 	}
 
 	@Autowired
-	public static int generatePin() throws Exception {
-		Random generator = new Random();
-		generator.setSeed(System.currentTimeMillis());
-
-		int num = generator.nextInt(99999) + 99999;
-		if (num < 100000 || num > 999999) {
-			num = generator.nextInt(99999) + 99999;
-			if (num < 100000 || num > 999999) {
-				throw new Exception("Unable to generate PIN at this time..");
-			}
-		}
-		return num;
-	}
-
-	@Autowired
 	private JavaMailSender jm;
 
 	public void sendEmail(String email, String body, String subject) {
-		
-//		int b = (int) Math.random() * 1000000;
-//		body = Integer.toString(b);
 
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("jittamsakhia02@gmail.com");
@@ -72,4 +62,41 @@ public class UserService {
 		jm.send(message);
 		System.out.print("mail is send");
 	}
+
+	public String getForgetpassword(String email, String password) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("email").is(email));
+
+		Users u = mongoTemplate.findOne(query, Users.class);
+		if (u != null) {
+
+			Update update = new Update();
+			update.set("password", password);
+
+			mongoTemplate.updateFirst(query, update, Users.class);
+
+			return "password is changed";
+		}
+		return "email is not valid";
+	}
+//	public String  upade(String VaribleType ,String updateName ,String username)
+//	{
+//		Query query = new Query();
+//		query.addCriteria(Criteria.where("username").is(username));
+//
+//		Users u = mongoTemplate.findOne(query, Users.class);
+//		Update update = new Update();
+//		if(u!=null)
+//		{
+//			update.set(VaribleType,updateName );
+//
+//			mongoTemplate.updateFirst(query, update, Users.class);
+//			return "update is done in"+VaribleType;
+//		}
+//		else {
+//			return "not valid users/not valid User";
+//		}
+//		
+//	}
+//	
 }
