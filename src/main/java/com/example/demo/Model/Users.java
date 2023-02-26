@@ -17,14 +17,14 @@ public class Users {
 	private String password;
 	private String picPath;
 	private Location location;
-	@Autowired
 	private ImageData image;
 	public ImageData getImage() {
 		return image;
-	}
+	}	
 
 	public void setImage(ImageData image) {
 		this.image = image;
+		System.out.println(image);
 	}
 
 	@Autowired
@@ -40,7 +40,9 @@ public class Users {
 		image.setName(file.getOriginalFilename());
 		image.setContentType(file.getContentType());
 		image.setData(file.getBytes());
-		System.out.println(file.getName());
+		System.out.println(file.getName());	
+	
+		setImage(image);
 		System.out.println(image.getData()+" , "+image.getName() +" , "+image.getContentType());
 		this.file = file;
 	

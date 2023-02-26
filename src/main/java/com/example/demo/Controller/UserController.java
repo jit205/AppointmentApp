@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Model.otp;
 
-//import com.example.demo.Model.UserUpdate;
 import com.example.demo.Model.Users;
 import com.example.demo.Services.UserService;
 
@@ -68,13 +67,13 @@ public class UserController {
 	
 	@PostMapping("/auth/register")
 	private String saveUsers(@ModelAttribute Users u) {
-//		Query query = new Query();
-//		query.addCriteria(Criteria.where("username").is(u.getUsername()));
-//		Users user = mongoTemplate.findOne(query, Users.class);
-		if (u != null) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("_id").is(u.getUsername()));
+		Users user = mongoTemplate.findOne(query, Users.class);
+		if (user == null) {
 
 			us.SaveUser(u);
-			System.out.println("Data= "+u.getImage().getData());
+//			System.out.println("Data= "+u.getImage().getName());
 			return "SAVE SUCCESFULLY";
 		} else {
 			return "User Already Exist";
@@ -168,12 +167,11 @@ public class UserController {
 			Query query = new Query();
 			query.addCriteria(Criteria.where("_id").is(id));
 			Users i = mongoTemplate.findOne(query, Users.class);
+			System.out.println(i.getImage().getData());
 			byte[] newdata =i.getImage().getData();
 			org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
-//			System.out.println(i);
-//			return null;
+
 			return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(newdata);
-//			return new ResponseEntity<>(newdata, headers,));
 		}
 }
