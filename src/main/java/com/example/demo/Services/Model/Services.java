@@ -8,20 +8,19 @@ import org.springframework.data.annotation.Id;
 import com.example.demo.Model.Location;
 
 public class Services {
-	  @Id
-	    String SID;
-	  String username;
-	    String category;
-	    String s=username+"_"+category;
-	    String serviceName;
-	    ServiceTime serviceTime;
-	    BreakTime breakTime;
-	    String appoinmentTime;
-	    Location location;
-	    String description;
-	    List<Appointment> appoinmentList;
-	    String createdTime;
-	    Date createdDate=new Date();
+	@Id
+	private	String SID;
+	private  String username;
+	private    String category;
+	private  String serviceName;
+	private ServiceTime serviceTime;
+	private  BreakTime breakTime;
+	private  String appoinmentTime;
+	private  Location location;
+	private  String description;
+	private  List<Appointment> appoinmentList;
+	private String createdTime;
+	private	 Date createdDate=new Date();
 	    
 		public String getUsername() {
 			return username;
@@ -29,17 +28,22 @@ public class Services {
 		public void setUsername(String username) {
 			this.username = username;
 		}
-		public String getSID() {
-			return SID;
-		}
-		public void setSID(String sID) {
-			SID = s;
-		}
+		
 		public String getCategory() {
 			return category;
 		}
 		public void setCategory(String category) {
 			this.category = category;
+			setSID(SID);
+		}
+		public String getSID() {
+			return SID;
+		}
+		public void setSID(String SID) {
+			String s=username+"_"+category;
+			System.out.println("SID "+s);
+			SID=s;
+			this.SID = SID;
 		}
 		public String getServiceName() {
 			return serviceName;

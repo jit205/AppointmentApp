@@ -10,10 +10,11 @@ import com.example.demo.Services.Repositery.ServicesRepo;
 public class Servicesimpl {
 	@Autowired
 	private ServicesRepo sr;
-	public Services save(Services S)
+	public Services saveservice(Services S)
 	{
+		System.out.println(S)	;
 		return sr.save(S);
 	}
 		
 
-}
+}	
