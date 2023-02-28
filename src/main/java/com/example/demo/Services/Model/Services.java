@@ -34,16 +34,14 @@ public class Services {
 		}
 		public void setCategory(String category) {
 			this.category = category;
-			setSID(SID);
+//			setSID(SID);
 		}
 		public String getSID() {
 			return SID;
 		}
-		public void setSID(String SID) {
-			String s=username+"_"+category;
-			System.out.println("SID "+s);
-			SID=s;
-			this.SID = SID;
+		public void setSID(String sID) {
+			
+			this.SID = sID;
 		}
 		public String getServiceName() {
 			return serviceName;

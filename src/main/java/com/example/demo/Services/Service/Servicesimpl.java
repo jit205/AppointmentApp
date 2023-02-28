@@ -1,5 +1,7 @@
 package com.example.demo.Services.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,13 @@ public class Servicesimpl {
 	private ServicesRepo sr;
 	public Services saveservice(Services S)
 	{
-		System.out.println(S)	;
+		String s=S.getUsername()+"_"+S.getCategory();
+		S.setSID(s);
 		return sr.save(S);
+	}
+	public List<Services> getcategory(String category)
+	{
+		return sr.findByCategory(category);
 	}
 		
 
