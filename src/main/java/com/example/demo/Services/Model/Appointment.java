@@ -2,21 +2,53 @@ package com.example.demo.Services.Model;
 
 import java.util.Date;
 
-public class Appointment {
+import org.springframework.data.annotation.Id;
 
-	 String name;
-	    String email;
-	    String contactNumber;
-	    String dateTime;
-	    String message;
-	    String bookedOn;
-	   Date date = new Date();
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
+public class Appointment {
+	@Id
+	private	String AID; 
+	private	String name;
+		private    String email;
+		private    String contactNumber;
+	    private    DateTime dateTime;
+	    private    String message;
+	 private   String bookedOn;
+	   private Status updatestatus;
+	    
+	  
+	public DateTime getDateTime() {
+		return dateTime;
+	}
+	public void setDateTime(DateTime dateTime) {
+		this.dateTime = dateTime;
+	}
+	
+	public Status getUpdatestatus() {
+		return updatestatus;
+	}
+	public void setUpdatestatus(Status updatestatus) {
+		this.updatestatus = updatestatus;
+	}
+
+	Date date = new Date();
+	   public String getName() {
+		   return name;
+	   }
+	   public void setName(String name) {
+		   this.name = name;
+		   setAID(AID); 
+	   }
+	  
+		public String getAID() {
+		return AID;
+	}
+	public void setAID(String AID) {
+		
+	     
+//		String s=date+"_"+name;
+//		AID=s;	
+		this.AID = AID;
+	}
 		public String getEmail() {
 			return email;
 		}
@@ -29,12 +61,7 @@ public class Appointment {
 		public void setContactNumber(String contactNumber) {
 			this.contactNumber = contactNumber;
 		}
-		public String getDateTime() {
-			return dateTime;
-		}
-		public void setDateTime(String dateTime) {
-			this.dateTime = dateTime;
-		}
+
 		public String getMessage() {
 			return message;
 		}

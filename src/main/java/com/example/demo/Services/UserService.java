@@ -11,9 +11,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.example.demo.Model.ImageData;
 import com.example.demo.Model.Users;
 import com.example.demo.Repositery.UserRepositery;
 
