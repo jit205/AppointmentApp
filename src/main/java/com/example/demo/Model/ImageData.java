@@ -8,7 +8,7 @@ public class ImageData {
     private String contentType;
     @Override
 	public String toString() {
-		return "ImageData [name=" + name + ", contentType=" + contentType + ", data=" + Arrays.toString(data) + "]";
+		return "ImageData [name=" + name + ", contentType=" + contentType;
 	}
 	private byte[] data;
 
