@@ -16,7 +16,16 @@ public class Users {
 	private String password;
 	// private String picPath;
 	private Location location;
+	@Override
+	public String toString() {
+		return "Users [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", about="
+				+ about + ", email=" + email + ", password=" + password + ", location=" + location + ", impressions="
+				+ impressions + "]";
+	}
+
 	private ImageData image;
+	@Autowired
+	private MultipartFile picPath;
 
 	public ImageData getImage() {
 		return image;
@@ -26,8 +35,6 @@ public class Users {
 		this.image = image;
 	}
 
-	@Autowired
-	private MultipartFile picPath;
 	//
 
 	public void setPicPath(MultipartFile picPath) throws IOException {

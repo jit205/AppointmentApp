@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.example.demo.Model.Users;
 
-public interface UserRepositery extends CrudRepository<Users, String>{
+public interface AuthRepositery extends CrudRepository<Users, String>{
 
 }

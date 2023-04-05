@@ -13,14 +13,14 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Model.Users;
-import com.example.demo.Repositery.UserRepositery;
+import com.example.demo.Repositery.AuthRepositery;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Service
 public class UserService {
 	@Autowired
-	UserRepositery ur;
+	AuthRepositery ur;
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
