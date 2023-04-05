@@ -47,7 +47,19 @@ public class UserService {
 		return li;
 	}
 
+	@Autowired
+	private JavaMailSender jm;
 
+	public void sendEmail(String email, String body, String subject) {
+
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("jittamsakhia02@gmail.com");
+		message.setTo(email);
+		message.setText(body);
+		message.setSubject(subject);
+		jm.send(message);
+		System.out.print("mail is send");
+	}
 
 	public String getForgetpassword(String email, String password) {
 		Query query = new Query();
