@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.Model.appointment.Appointment;
 import com.example.demo.Model.appointment.DateTime;
 import com.example.demo.Model.service.Services;
+import com.example.demo.Repositery.AppointmentRepo;
 import com.example.demo.Repositery.ServicesRepo;
 
 @Service
@@ -22,6 +23,8 @@ public class Servicesimpl {
 	@Autowired
 	private ServicesRepo sr;
 
+	@Autowired
+	private AppointmentRepo ar;
 
 	public Services saveservice(Services S) {
 		S.setSID(S.getUsername() + "_" + S.getCategory());
@@ -44,6 +47,9 @@ public class Servicesimpl {
 		return sr.findByCategoryAndCityAndPincode(category, city, pincode);
 	}
 
+	public Appointment getAID(String aid) {
+		return ar.findByAID(aid);
+	}
 
 	public Services getbyaid(String aid) {
 		System.out.println("getbyaid = " + aid);
