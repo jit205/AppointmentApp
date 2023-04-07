@@ -1,4 +1,4 @@
-package com.example.demo.Model;
+package com.example.demo.Model.User;
 
 import java.io.IOException;
 
@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.Model.Location;
 
 public class Users {
 	@Id
@@ -15,37 +16,44 @@ public class Users {
 	private String about;
 	private String email;
 	private String password;
-	private String picPath;
+	// private String picPath;
 	private Location location;
+	@Override
+	public String toString() {
+		return "Users [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", about="
+				+ about + ", email=" + email + ", password=" + password + ", location=" + location + ", impressions="
+				+ impressions + "]";
+	}
+
 	private ImageData image;
+	@Autowired
+	private MultipartFile picPath;
+
+	public MultipartFile getPicPath() {
+		return picPath;
+	}
+
 	public ImageData getImage() {
 		return image;
-	}	
+	}
 
 	public void setImage(ImageData image) {
 		this.image = image;
-		System.out.println(image);
 	}
 
-	@Autowired
-	private MultipartFile file;
-//
-	public MultipartFile getFile() {
-		return file;
-	}
+	//
 
-	public void setFile(MultipartFile file) throws IOException {
-		
-		ImageData  image = new ImageData();
-		image.setName(file.getOriginalFilename());
-		image.setContentType(file.getContentType());
-		image.setData(file.getBytes());
-		System.out.println(file.getName());	
-	
-		setImage(image);
-		System.out.println(image.getData()+" , "+image.getName() +" , "+image.getContentType());
-		this.file = file;
-	
+	public void setPicPath(MultipartFile picPath) throws IOException {
+		try {
+			ImageData image = new ImageData();
+			image.setName(picPath.getOriginalFilename());
+			image.setContentType(picPath.getContentType());
+			image.setData(picPath.getBytes());
+			System.out.println(image.getName());
+			setImage(image);
+		} catch (Exception e) {
+			System.out.println("No Image Attached");
+		}
 	}
 
 	public Location getLocation() {
@@ -104,14 +112,6 @@ public class Users {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getPicPath() {
-		return picPath;
-	}
-
-	public void setPicPath(String picPath) {
-		this.picPath = picPath;
 	}
 
 	public String getImpressions() {
