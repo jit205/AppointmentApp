@@ -2,6 +2,8 @@ package com.example.demo.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.Model.appointment.Appointment;
 import com.example.demo.Model.service.Services;
 import com.example.demo.Services.services.Servicesimpl;
 
@@ -32,6 +34,8 @@ public class ServiceController {
 			Services ss = mongoTemplate.findOne(query, Services.class);
 			System.out.println("ss " + ss);
 			if (s.getSID() == null && ss == null) {
+				List<Appointment> tmp = new ArrayList<>();
+				s.setAppointmentList(tmp);
 				si.saveservice(s);
 				res.put("services", si.GetadminServicres(s.getUsername()));
 			} else if (ss != null) {
